@@ -1,0 +1,96 @@
+/* ============================================================================
+   Multi-step wizard
+   ============================================================================ */
+body.theme-2026 .wizard {
+    max-width: 720px;
+    margin: 0 auto;
+}
+body.theme-2026 .wizard__steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+body.theme-2026 .wizard__step {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+}
+body.theme-2026 .wizard__step:not(:last-child)::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: var(--m-divider);
+    margin: 0 8px;
+}
+body.theme-2026 .wizard__step.is-complete:not(:last-child)::after,
+body.theme-2026 .wizard__step.is-active:not(:last-child)::after {
+    background: var(--m-accent);
+}
+body.theme-2026 .wizard__circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--m-surface-2);
+    color: var(--m-text-muted);
+    border: 2px solid var(--m-border);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+    transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+body.theme-2026 .wizard__step.is-active .wizard__circle {
+    background: var(--m-accent);
+    border-color: var(--m-accent);
+    color: #fff;
+    box-shadow: 0 0 0 4px rgba(var(--m-accent-rgb), 0.15);
+}
+body.theme-2026 .wizard__step.is-complete .wizard__circle {
+    background: var(--m-accent);
+    border-color: var(--m-accent);
+    color: #fff;
+}
+body.theme-2026 .wizard__label {
+    font-family: var(--m-font);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--m-text-muted);
+    line-height: 1.2;
+}
+body.theme-2026 .wizard__step.is-active .wizard__label,
+body.theme-2026 .wizard__step.is-complete .wizard__label {
+    color: var(--m-text);
+}
+body.theme-2026 .wizard__sublabel {
+    display: block;
+    font-size: 11.5px;
+    color: var(--m-text-faint);
+    font-weight: 400;
+    margin-top: 1px;
+}
+body.theme-2026 .wizard__panel {
+    background: var(--m-surface);
+    border: 1px solid var(--m-border);
+    border-radius: var(--m-radius);
+    padding: 28px;
+    box-shadow: var(--m-shadow-xs);
+}
+body.theme-2026 .wizard__nav {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+@media (max-width: 575.98px) {
+    body.theme-2026 .wizard__step .wizard__label { display: none; }
+    body.theme-2026 .wizard__step:last-child .wizard__label { display: block; }
+}
+
+

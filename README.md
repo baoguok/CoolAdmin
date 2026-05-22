@@ -2,7 +2,7 @@
 
 ![CoolAdmin Dashboard](screenshots/cooladmin-bootstrap-dashboard-2.png)
 
-[![Version](https://img.shields.io/badge/version-3.1.0-4272d7?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.2.0-4272d7?style=flat-square)](CHANGELOG.md)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3?style=flat-square&logo=bootstrap)](https://getbootstrap.com/)
 [![Chart.js](https://img.shields.io/badge/Chart.js-4.5.1-ff6384?style=flat-square&logo=chart.js)](https://www.chartjs.org/)
 [![FontAwesome](https://img.shields.io/badge/FontAwesome-7.2.0-339af0?style=flat-square&logo=fontawesome)](https://fontawesome.com/)
@@ -10,7 +10,20 @@
 [![Vanilla JS](https://img.shields.io/badge/JavaScript-Vanilla-f7df1e?style=flat-square&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
 
-**CoolAdmin** is a modern, responsive, and feature-rich admin dashboard template built with **Bootstrap 5.3.8** and **vanilla JavaScript**. Originally rewritten in 2025 to drop jQuery and Bootstrap 4; refreshed in 2026 (v3.0) with a leaner dependency set, accessibility improvements, and per-page SEO metadata; extended in v3.1 with a modern design overlay, a command palette, a theme switcher, loading skeletons, and 11 new pages including kanban, profile, pricing, invoice, and a working data table.
+**CoolAdmin** is a modern, responsive, and feature-rich admin dashboard template built with **Bootstrap 5.3.8** and **vanilla JavaScript**. Originally rewritten in 2025 to drop jQuery and Bootstrap 4; refreshed in 2026 (v3.0) with a leaner dependency set, accessibility improvements, and per-page SEO metadata; extended in v3.1 with a modern design overlay, a command palette, a theme switcher, loading skeletons, and 11 new pages including kanban, profile, pricing, invoice, and a working data table; refactored in v3.2 with a Pug + SCSS source pipeline so the sidebar nav and shared chrome live in a single editable file.
+
+## What's New in v3.2.0 (May 2026)
+
+### Source pipeline — Pug templates, SCSS partials, Vite dev server
+
+You can still clone the repo and open `index.html` — built HTML and CSS ship in the repo root with zero build step. But contributors now get:
+
+- **One-file menu editing.** Add, rename, or reorder a sidebar item in `src/pug/partials/_nav-data.pug` and it propagates to both the desktop sidebar and the mobile nav on every page. No more touching 24 HTML files for a single nav change.
+- **Pug layouts + partials.** Shared `<head>` (with per-page meta mixin), sidebar, topbar, mobile header, and footer scripts live in `src/pug/partials/`. Two layouts (`_default.pug` for dashboards, `_auth.pug` for login/register/forget-pass). Pages set `block variables` (title, description, activePage) and fill in `block content`.
+- **SCSS split into 56 partials.** `theme.scss` (legacy) decomposes into 20 ITCSS partials (`_variables`, `_generic`, `_elements`, `_objects`, fourteen `components/_*`, `_utilities`, `_modern-additions`). `theme-2026.scss` (modern overlay) decomposes into 36 partials under `src/scss/2026/`. Sass compiles them back to byte-equivalent CSS (verified via minified diff).
+- **Vite dev server with HMR.** `npm run dev` runs Pug watcher + sass watcher + Vite in parallel. Edit a partial or a SCSS variable, see the browser reload in milliseconds.
+
+Addresses [issue #35](https://github.com/puikinsh/CoolAdmin/issues/35). Three pages are migrated to Pug as a proof-of-concept (`index`, `login`, `table`); the other 21 remain hand-written HTML at the repo root and continue to work unchanged. Each can be migrated incrementally — ~10 lines of Pug plus an inner-content extraction.
 
 ## What's New in v3.1.0 (May 2026)
 
@@ -61,9 +74,12 @@ Direct links to each dashboard variant:
 ## Preview
 
 ### Dashboard Variations
-| Dashboard 1 | Dashboard 2 | Dashboard 3 | Dashboard 4 |
-|-------------|-------------|-------------|-------------|
-| ![Dashboard 1](screenshots/cooladmin-bootstrap-dashboard-1.png) | ![Dashboard 2](screenshots/cooladmin-bootstrap-dashboard-2.png) | ![Dashboard 3](screenshots/cooladmin-bootstrap-dashboard-3.png) | ![Dashboard 4](screenshots/cooladmin-bootstrap-dashboard-4.png) |
+
+Each thumbnail links to its live demo on Cloudflare R2.
+
+| [Dashboard 1 — Overview](https://preview.colorlib.com/theme/cooladmin/index.html) | [Dashboard 2 — Sales pipeline](https://preview.colorlib.com/theme/cooladmin/index2.html) | [Dashboard 3 — Marketing analytics](https://preview.colorlib.com/theme/cooladmin/index3.html) | [Dashboard 4 — Projects](https://preview.colorlib.com/theme/cooladmin/index4.html) |
+|---|---|---|---|
+| [![Dashboard 1 — Overview](screenshots/cooladmin-bootstrap-dashboard-1.png)](https://preview.colorlib.com/theme/cooladmin/index.html) | [![Dashboard 2 — Sales pipeline](screenshots/cooladmin-bootstrap-dashboard-2.png)](https://preview.colorlib.com/theme/cooladmin/index2.html) | [![Dashboard 3 — Marketing analytics](screenshots/cooladmin-bootstrap-dashboard-3.png)](https://preview.colorlib.com/theme/cooladmin/index3.html) | [![Dashboard 4 — Projects](screenshots/cooladmin-bootstrap-dashboard-4.png)](https://preview.colorlib.com/theme/cooladmin/index4.html) |
 
 ### UI Components & Pages
 - **Interactive Charts** - Line, Bar, Doughnut, and Real-time charts
@@ -179,15 +195,16 @@ Want more layouts, richer components, and priority support? Our premium template
 ### **Core Technologies**
 ```json
 {
-  "version": "3.0.0",
+  "version": "3.2.0",
   "bootstrap": "5.3.8",
   "chart.js": "4.5.1",
   "fontawesome": "7.2.0",
   "fullcalendar": "6.1.20",
   "leaflet": "1.9.4",
   "javascript": "ES6+ Vanilla",
-  "css": "CSS3 + Custom Properties",
-  "html": "HTML5 Semantic Markup"
+  "css": "CSS3 + Custom Properties (authored in SCSS)",
+  "html": "HTML5 Semantic Markup (authored in Pug)",
+  "build": "Vite 7 + Sass + Pug (optional — built artifacts ship in repo)"
 }
 ```
 
@@ -211,88 +228,140 @@ Want more layouts, richer components, and priority support? Our premium template
 
 ```
 CoolAdmin/
-├── 📁 css/
-│   ├── theme.css                  # Main stylesheet with Bootstrap 5 customizations
-│   ├── font-face.css             # Custom font definitions
-│   ├── aos.css                   # Animate On Scroll styles
-│   └── swiper-bundle.min.css     # Modern slider/carousel styles
-├── 📁 js/
-│   ├── vanilla-utils.js          # 🆕 jQuery replacement utilities
-│   ├── main-vanilla.js           # 🔄 Updated Chart.js v4 configurations
-│   ├── bootstrap5-init.js        # Bootstrap 5 component initialization
-│   ├── modern-plugins.js         # 🆕 Modern plugin configurations
-│   ├── swiper-bundle.min.js      # Touch slider functionality
-│   └── aos.js                    # Scroll animations
-├── 📁 vendor/
-│   ├── bootstrap-5.3.8.min.css  # Latest Bootstrap framework
+├── css/                          # Built CSS (regenerated by sass from src/scss/)
+│   ├── theme.css                 # Legacy stylesheet (~14k lines, ~207 KB)
+│   ├── theme-2026.css            # Modern overlay (~7k lines, scoped to body.theme-2026)
+│   └── font-face.css             # Poppins font-face declarations
+├── js/
+│   ├── vanilla-utils.js          # jQuery replacement utilities ($, $$, on, addClass, ready…)
+│   ├── bootstrap5-init.js        # Initializes tooltips + popovers only
+│   ├── main-vanilla.js           # Chart.js configs + sidebar/dropdown UI behaviors
+│   └── modern-plugins.js         # Counters, modern progress bars, lightbox
+├── vendor/
+│   ├── bootstrap-5.3.8.min.css   # Bootstrap 5.3.8
 │   ├── bootstrap-5.3.8.bundle.min.js
-│   ├── fontawesome-7.1.0/       # Latest Font Awesome icons
-│   ├── chartjs/chart.umd.js-4.5.1.min.js # Chart.js v4.5.1 UMD bundle
-│   ├── perfect-scrollbar/        # Custom scrollbar functionality
-│   ├── css-hamburgers/           # Animated hamburger menu icons
-│   └── mdi-font/                 # Material Design Icons
-├── 📁 images/
-│   ├── icon/                     # Dashboard icons and logos
-│   └── various image assets     # UI graphics and backgrounds
-├── 📁fonts/
-│   └── poppins/                  # Modern Poppins font family
-├── 📄 HTML Pages (24 files)
-│   ├── index.html               # Main dashboard (Chart.js v4)
-│   ├── index2.html              # Alternative dashboard layout
-│   ├── index3.html              # Third dashboard variation
-│   ├── index4.html              # Fourth dashboard variation
-│   ├── table.html               # 🔄 Enhanced responsive tables
-│   ├── form.html                # 🔄 Bootstrap 5 form components
-│   ├── calendar.html            # 🔄 FullCalendar v6+ integration
-│   ├── chart.html               # Data visualization showcase
-│   ├── card.html                # Card component variations
-│   ├── button.html              # Button styles and states
-│   ├── modal.html               # Modal dialogs and overlays
-│   ├── tab.html                 # Tab navigation components
-│   ├── alert.html               # Alert and notification styles
-│   ├── progress-bar.html        # Progress indicators
-│   ├── badge.html               # Badge and label components
-│   ├── switch.html              # Toggle switches and checkboxes
-│   ├── grid.html                # Grid system demonstration
-│   ├── typo.html                # Typography showcase
-│   ├── fontawesome.html         # 🔄 FontAwesome 7.0.1 icons
-│   ├── map.html                 # Interactive maps
-│   ├── inbox.html               # Email interface layout
-│   ├── login.html               # Authentication pages
-│   ├── register.html            # User registration
-│   └── forget-pass.html         # Password recovery
-├── 📄 CHANGELOG.md              # 🆕 Detailed version history
-└── 📄 README.md                 # 🆕 This comprehensive guide
+│   ├── fontawesome-7.2.0/        # Font Awesome 7.2.0 (single icon font)
+│   ├── chartjs/                  # Chart.js 4.5.1 UMD bundle
+│   ├── fullcalendar-6.1.20/      # FullCalendar 6.1.20
+│   └── css-hamburgers/           # Animated hamburger menu icons
+├── src/                          # NEW in v3.2 — Pug + SCSS sources
+│   ├── pug/                      # Layouts, partials, pages — see "Source layout" above
+│   └── scss/                     # 56 SCSS partials + two entry files
+├── scripts/
+│   └── build-pug.js              # Renders src/pug/pages/*.pug → root *.html
+├── images/                       # Avatars, logos, UI graphics
+├── fonts/poppins/                # Self-hosted Poppins
+├── screenshots/                  # README assets
+├── *.html (24 pages)             # Built HTML at repo root — clone-and-open ready
+│   ├── index.html, index2.html, index3.html, index4.html   # 4 dashboard variants
+│   ├── chart.html, table.html, data-table.html             # Data + analytics
+│   ├── calendar.html, map.html, kanban.html, inbox.html    # Apps
+│   ├── form.html, wizard.html                              # Forms
+│   ├── card.html, button.html, modal.html, tab.html,       # UI components
+│   │   alert.html, progress-bar.html, badge.html,
+│   │   switch.html, grid.html, typo.html, fontawesome.html
+│   ├── profile.html, pricing.html, invoice.html,           # Account / commerce
+│   │   docs.html, notifications.html
+│   ├── login.html, register.html, forget-pass.html         # Auth
+│   └── 404.html, 500.html, maintenance.html                # Error / status
+├── package.json                  # npm scripts: dev, build, build:pug, build:sass
+├── vite.config.js                # Vite dev server config (MPA mode, port 3000)
+├── CHANGELOG.md                  # Per-release history
+└── README.md                     # This file
 ```
 
 ## Quick Start
 
-### **1. Download & Setup**
-```bash
-# Clone or download the repository
-git clone https://github.com/your-username/cooladmin.git
-cd cooladmin
+CoolAdmin ships **two ways to run it**, depending on whether you want to edit shared partials or just preview the built template.
 
-# No build process required - just open HTML files!
+### As an end user — no Node required
+
+Built HTML and CSS live in the repo root. Clone, serve statically, open in a browser:
+
+```bash
+git clone https://github.com/puikinsh/CoolAdmin.git
+cd CoolAdmin
+python3 -m http.server 8000      # or:  npx serve .
 ```
 
-### **2. Development Server (Recommended)**
+Then open `http://localhost:8000/index.html`. Every page (24 in total) works without a toolchain.
+
+### As a contributor — Pug + SCSS + Vite
+
+To edit shared layouts, sidebar nav, or SCSS partials, run the source pipeline:
+
 ```bash
-# Python 3
-python -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
-
-# Node.js (if you have it)
-npx serve .
-
-# VS Code Live Server extension
-# Right-click on index.html → "Open with Live Server"
+npm install                      # one-time
+npm run dev                      # starts pug-watch + sass-watch + Vite dev server at :3000
 ```
 
-### **3. Open in Browser**
-Navigate to `http://localhost:8000` and start exploring!
+`npm run dev` runs three watchers concurrently:
+
+- **Pug** — `node scripts/build-pug.js --watch` recompiles root `*.html` when anything in `src/pug/` changes.
+- **Sass** — `sass --watch src/scss/*.scss:css/*.css` recompiles `css/theme.css` and `css/theme-2026.css` from `src/scss/` sources.
+- **Vite** — dev server with HMR at `http://localhost:3000`, auto-opens `index.html`.
+
+Edit `src/pug/partials/_nav-data.pug` to change the sidebar — the change appears on every page automatically.
+
+For a production rebuild without watchers:
+
+```bash
+npm run build                    # one-shot pug + sass build
+```
+
+### Source layout
+
+```
+src/
+├── pug/
+│   ├── layouts/
+│   │   ├── _default.pug         # sidebar + topbar + main content
+│   │   └── _auth.pug            # centered single-column (login, register)
+│   ├── partials/
+│   │   ├── _head.pug            # +head(meta) mixin — emits <head> from { title, description, noindex }
+│   │   ├── _nav-data.pug        # SINGLE SOURCE OF TRUTH for menu items
+│   │   ├── sidebar.pug          # desktop sidebar — uses _nav-data
+│   │   ├── header-mobile.pug    # mobile header + nav — uses _nav-data
+│   │   ├── header-desktop.pug   # topbar (search, dropdowns, account menu)
+│   │   ├── footer-scripts.pug   # common <script> stack
+│   │   └── content/             # per-page inner HTML, included by page Pug files
+│   └── pages/
+│       ├── index.pug            # extends _default, sets activePage, blocks
+│       ├── login.pug            # extends _auth
+│       └── table.pug            # extends _default
+├── scss/
+│   ├── theme.scss               # entry — @use's 20 legacy partials
+│   ├── theme-2026.scss          # entry — @use's 36 overlay partials
+│   ├── _variables.scss          # design tokens (legacy)
+│   ├── _generic.scss            # normalize, scrollbars, typography
+│   ├── _elements.scss           # title, links
+│   ├── _objects.scss            # section, page-wrapper
+│   ├── _utilities.scss          # padding/margin spacing utilities
+│   ├── _modern-additions.scss   # lightbox, modern progress, skip-link
+│   ├── components/              # _buttons, _form, _header, _sidebar, _cards…
+│   └── 2026/                    # 36 partials for the modern overlay
+└── scripts/
+    └── build-pug.js             # Node script: src/pug/pages/*.pug → root *.html
+```
+
+### Adding a new page (Pug workflow)
+
+1. Add the nav entry to `src/pug/partials/_nav-data.pug`.
+2. Drop your page content (everything that would go inside `.container-fluid`) into `src/pug/partials/content/your-page.html`.
+3. Create `src/pug/pages/your-page.pug`:
+
+   ```pug
+   extends ../layouts/_default
+
+   block variables
+     - var pageMeta = { title: 'Your page', description: 'Short description' }
+     - var activePage = 'your-page.html'
+
+   block content
+     include ../partials/content/your-page.html
+   ```
+
+4. Run `npm run build:pug` (or leave `npm run dev` running).
 
 ## Dashboard Pages
 
@@ -590,7 +659,7 @@ This project is licensed under the **MIT License** - see the [LICENSE.md](LICENS
 
 **Made with ❤️ by [Colorlib](https://colorlib.com)**
 
-v3.0.0 · May 2026 · Bootstrap 5.3.8 · Font Awesome 7.2.0 · Chart.js 4.5.1 · FullCalendar 6.1.20 · Vanilla JavaScript
+v3.2.0 · May 2026 · Bootstrap 5.3.8 · Font Awesome 7.2.0 · Chart.js 4.5.1 · FullCalendar 6.1.20 · Vanilla JavaScript · Pug + SCSS + Vite source pipeline
 
 [⬆ Back to Top](#cooladmin---modern-bootstrap-5-admin-dashboard-template)
 

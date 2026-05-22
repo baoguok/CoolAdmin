@@ -5,6 +5,33 @@ All notable changes to the CoolAdmin Bootstrap 5 Admin Dashboard Template will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2026-05-22
+
+### Source pipeline — Pug templates, SCSS partials, Vite dev server
+
+Refactored the source tree so contributors can edit shared partials once instead of editing every page. Built artifacts (HTML + CSS) still ship in the repo root unchanged, so end users who clone and open `index.html` still need zero Node toolchain. Addresses [issue #35](https://github.com/puikinsh/CoolAdmin/issues/35).
+
+### Added
+
+- **Pug templating.** `src/pug/` houses layouts (`_default.pug`, `_auth.pug`), partials (`_head.pug` mixin, `sidebar.pug`, `header-desktop.pug`, `header-mobile.pug`, `footer-scripts.pug`), and per-page files (`pages/*.pug`). The desktop sidebar and mobile nav both read from a single source-of-truth array in `_nav-data.pug` — editing one file updates the menu on every page.
+- **SCSS sources, split into ITCSS partials.** `src/scss/theme.scss` is an entry file that `@use`s 20 partials (`_variables`, `_generic`, `_elements`, `_objects`, fourteen under `components/`, `_utilities`, `_modern-additions`). `src/scss/theme-2026.scss` `@use`s 36 partials under `src/scss/2026/`. Sass compiles back to `css/theme.css` and `css/theme-2026.css` that is byte-for-byte semantically equivalent to the pre-refactor CSS (verified via minified diff = 0 bytes).
+- **Build tooling.** `package.json` with `npm run dev` (concurrent pug-watch + sass-watch + Vite dev server with HMR at `:3000`), `npm run build` (production build), and individual `build:pug` / `build:sass` scripts. `scripts/build-pug.js` is a small Node script that walks `src/pug/pages/*.pug` and renders each to a root-level `.html` file.
+- **Vite dev server.** `vite.config.js` configured for multi-page mode with HMR for HTML/CSS changes.
+
+### Changed
+
+- **Three pages migrated to Pug as a proof-of-concept:** `index.html`, `login.html`, `table.html`. The Pug page files (`src/pug/pages/*.pug`) `extends` a layout and set `block variables` (page metadata + `activePage` for sidebar highlighting). Per-page inner content is currently `include`d as raw HTML from `src/pug/partials/content/` so each page can be converted to proper Pug incrementally.
+- **Generator meta bumped to `CoolAdmin 3.2.0`** across all 35 HTML files.
+- **HTML output formatting** is normalized by Pug (2-space indent, self-closing void elements) and CSS formatting normalized by sass; the regenerated files have different whitespace from the previous hand-written versions but render identically.
+
+### Notes
+
+- The remaining 21 pages still ship as hand-written HTML at the repo root, each ~10 lines of Pug away from being source-driven. Migrating each one is a per-file extraction of its inner content into `src/pug/partials/content/` plus a small `src/pug/pages/*.pug` wrapper.
+- `@use` order in the entry SCSS files matches the original document order so the cascade — including the 2026 overlay's deliberately-layered "FINAL"/"ULTRA-FINAL" mobile-topbar overrides — is preserved.
+- `.gitignore` updated to exclude `node_modules/`, `.vite/`, and `dist/`.
+
+---
+
 ## [3.1.0] - 2026-05-07
 
 ### Modern theme overlay (`theme-2026.css`), 11 new pages, interactive utilities
