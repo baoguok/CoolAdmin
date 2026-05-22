@@ -421,7 +421,7 @@ withCanvas('percent-chart2', (ctx) => {
 });
 
 // ---------------------------------------------------------------------------
-// 2026 dashboard charts (index.html, theme-2026)
+// App-theme dashboard charts (index.html, body.app)
 // ---------------------------------------------------------------------------
 
 const INTER = '"Inter", system-ui, sans-serif';
@@ -855,7 +855,7 @@ function initDashboardRefresh() {
 // ---------------------------------------------------------------------------
 function initThemeSwitcher() {
   const body = document.body;
-  if (!body.classList.contains('theme-2026')) return;
+  if (!body.classList.contains('app')) return;
   // Skip on auth/error full-screen pages where the switcher would crowd
   if (body.classList.contains('auth-page') || body.classList.contains('error-page')) return;
 

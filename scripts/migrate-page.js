@@ -21,8 +21,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..');
 
 function detectLayout(html) {
-  if (html.includes('class="theme-2026 auth-page"')) return 'auth';
-  if (html.includes('class="theme-2026 error-page"')) return 'error';
+  if (html.includes('class="app auth-page"')) return 'auth';
+  if (html.includes('class="app error-page"')) return 'error';
   return 'default';
 }
 
@@ -193,7 +193,7 @@ async function migratePage(name) {
     // The page's `block variables` REPLACES the layout's defaults wholesale,
     // so we must emit bodyClass explicitly here.
     const bodyMatch = html.match(/<body\s+class="([^"]+)"/);
-    const defaultClass = layout === 'auth' ? 'theme-2026 auth-page' : 'theme-2026 error-page';
+    const defaultClass = layout === 'auth' ? 'app auth-page' : 'app error-page';
     lines.push(`  - var bodyClass = '${bodyMatch ? bodyMatch[1] : defaultClass}'`);
     if (layout === 'auth') {
       const skipText = detectAuthSkipText(name, html);

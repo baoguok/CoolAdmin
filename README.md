@@ -2,7 +2,7 @@
 
 ![CoolAdmin Dashboard](screenshots/cooladmin-bootstrap-dashboard-2.png)
 
-[![Version](https://img.shields.io/badge/version-3.2.0-4272d7?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.3.0-4272d7?style=flat-square)](CHANGELOG.md)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3?style=flat-square&logo=bootstrap)](https://getbootstrap.com/)
 [![Chart.js](https://img.shields.io/badge/Chart.js-4.5.1-ff6384?style=flat-square&logo=chart.js)](https://www.chartjs.org/)
 [![FontAwesome](https://img.shields.io/badge/FontAwesome-7.2.0-339af0?style=flat-square&logo=fontawesome)](https://fontawesome.com/)
@@ -10,7 +10,23 @@
 [![Vanilla JS](https://img.shields.io/badge/JavaScript-Vanilla-f7df1e?style=flat-square&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
 
-**CoolAdmin** is a modern, responsive, and feature-rich admin dashboard template built with **Bootstrap 5.3.8** and **vanilla JavaScript**. Originally rewritten in 2025 to drop jQuery and Bootstrap 4; refreshed in 2026 (v3.0) with a leaner dependency set, accessibility improvements, and per-page SEO metadata; extended in v3.1 with a modern design overlay, a command palette, a theme switcher, loading skeletons, and 11 new pages including kanban, profile, pricing, invoice, and a working data table; refactored in v3.2 with a Pug + SCSS source pipeline so the sidebar nav and shared chrome live in a single editable file.
+**CoolAdmin** is a modern, responsive, and feature-rich admin dashboard template built with **Bootstrap 5.3.8** and **vanilla JavaScript**. Originally rewritten in 2025 to drop jQuery and Bootstrap 4; refreshed in 2026 (v3.0) with a leaner dependency set, accessibility improvements, and per-page SEO metadata; extended in v3.1 with a modern design overlay, a command palette, a theme switcher, loading skeletons, and 11 new pages including kanban, profile, pricing, invoice, and a working data table; refactored in v3.2 with a Pug + SCSS source pipeline so the sidebar nav and shared chrome live in a single editable file; renamed the year-flavoured `theme-2026` overlay to `app` in v3.3 for a less-dated convention.
+
+## What's New in v3.3.0 (May 2026)
+
+### Renamed `theme-2026` → `app`
+
+A small but durable cleanup. The "modern overlay" stylesheet was named with a year in v3.1, and that name was on track to feel dated within months. Renamed everything to a neutral convention that won't age:
+
+- **`css/theme-2026.css` → `css/app.css`**
+- **`src/scss/theme-2026.scss` → `src/scss/app.scss`**
+- **`src/scss/2026/` → `src/scss/app/`** (36 partials)
+- **`body.theme-2026` → `body.app`** across all 35 pages
+- Every internal SCSS scope (`body.theme-2026 .m-card`, etc.) updated to `body.app`
+- Theme-presets (`body.theme-2026.theme-purple` and friends) updated to `body.app.theme-purple`
+- The `initThemeSwitcher()` gate in `js/main-vanilla.js` updated to `body.classList.contains('app')`
+
+End users see no visual change. Rebuilt CSS is byte-equivalent to v3.2 (modulo the class-name swap). The two-file convention (legacy `theme.css` + overlay) is preserved — only the overlay's name changed.
 
 ## What's New in v3.2.0 (May 2026)
 
@@ -20,7 +36,7 @@ You can still clone the repo and open `index.html` — built HTML and CSS ship i
 
 - **One-file menu editing.** Add, rename, or reorder a sidebar item in `src/pug/partials/_nav-data.pug` and it propagates to both the desktop sidebar and the mobile nav on every page. No more touching 24 HTML files for a single nav change.
 - **Pug layouts + partials.** Shared `<head>` (with per-page meta mixin), sidebar, topbar, mobile header, and footer scripts live in `src/pug/partials/`. Two layouts (`_default.pug` for dashboards, `_auth.pug` for login/register/forget-pass). Pages set `block variables` (title, description, activePage) and fill in `block content`.
-- **SCSS split into 56 partials.** `theme.scss` (legacy) decomposes into 20 ITCSS partials (`_variables`, `_generic`, `_elements`, `_objects`, fourteen `components/_*`, `_utilities`, `_modern-additions`). `theme-2026.scss` (modern overlay) decomposes into 36 partials under `src/scss/2026/`. Sass compiles them back to byte-equivalent CSS (verified via minified diff).
+- **SCSS split into 56 partials.** `theme.scss` (legacy) decomposes into 20 ITCSS partials (`_variables`, `_generic`, `_elements`, `_objects`, fourteen `components/_*`, `_utilities`, `_modern-additions`). `app.scss` (overlay on theme.css) decomposes into 36 partials under `src/scss/app/`. Sass compiles them back to byte-equivalent CSS (verified via minified diff).
 - **Vite dev server with HMR.** `npm run dev` runs Pug watcher + sass watcher + Vite in parallel. Edit a partial or a SCSS variable, see the browser reload in milliseconds.
 
 Addresses [issue #35](https://github.com/puikinsh/CoolAdmin/issues/35). Three pages are migrated to Pug as a proof-of-concept (`index`, `login`, `table`); the other 21 remain hand-written HTML at the repo root and continue to work unchanged. Each can be migrated incrementally — ~10 lines of Pug plus an inner-content extraction.
@@ -29,7 +45,7 @@ Addresses [issue #35](https://github.com/puikinsh/CoolAdmin/issues/35). Three pa
 
 ### A modern application shell on top of the audited base
 
-- **`theme-2026.css` — single-file design overlay.** Activated by `<body class="theme-2026">`. Inter font, brand-blue palette, modern card and button patterns, stat-cards, profile cards, kanban board, project lists, deadline lists, email split-pane reader. Original styles still ship for anyone who prefers them.
+- **`app.css` — single-file design overlay.** Activated by `<body class="app">`. Inter font, brand-blue palette, modern card and button patterns, stat-cards, profile cards, kanban board, project lists, deadline lists, email split-pane reader. Original styles still ship for anyone who prefers them.
 - **Cmd+K command palette** with 31+ commands, keyboard navigation, and fuzzy match.
 - **6-preset color theme switcher** (Cmd/Ctrl+Shift+T) — Default Blue, Indigo, Emerald, Sunset, Rose, Slate. Persists in `localStorage`.
 - **Toast notification system.** `window.toast.success(...)`, `.info`, `.warning`, `.error`. Stack of up to 5, click-to-dismiss.
@@ -195,7 +211,7 @@ Need advanced features, dedicated support, and production-ready code? Explore ou
 ### **Core Technologies**
 ```json
 {
-  "version": "3.2.0",
+  "version": "3.3.0",
   "bootstrap": "5.3.8",
   "chart.js": "4.5.1",
   "fontawesome": "7.2.0",
@@ -230,7 +246,7 @@ Need advanced features, dedicated support, and production-ready code? Explore ou
 CoolAdmin/
 ├── css/                          # Built CSS (regenerated by sass from src/scss/)
 │   ├── theme.css                 # Legacy stylesheet (~14k lines, ~207 KB)
-│   ├── theme-2026.css            # Modern overlay (~7k lines, scoped to body.theme-2026)
+│   ├── app.css                # App theme overlay (~7k lines, scoped to body.app)
 │   └── font-face.css             # Poppins font-face declarations
 ├── js/
 │   ├── vanilla-utils.js          # jQuery replacement utilities ($, $$, on, addClass, ready…)
@@ -298,7 +314,7 @@ npm run dev                      # starts pug-watch + sass-watch + Vite dev serv
 `npm run dev` runs three watchers concurrently:
 
 - **Pug** — `node scripts/build-pug.js --watch` recompiles root `*.html` when anything in `src/pug/` changes.
-- **Sass** — `sass --watch src/scss/*.scss:css/*.css` recompiles `css/theme.css` and `css/theme-2026.css` from `src/scss/` sources.
+- **Sass** — `sass --watch src/scss/*.scss:css/*.css` recompiles `css/theme.css` and `css/app.css` from `src/scss/` sources.
 - **Vite** — dev server with HMR at `http://localhost:3000`, auto-opens `index.html`.
 
 Edit `src/pug/partials/_nav-data.pug` to change the sidebar — the change appears on every page automatically.
@@ -331,7 +347,7 @@ src/
 │       └── table.pug            # extends _default
 ├── scss/
 │   ├── theme.scss               # entry — @use's 20 legacy partials
-│   ├── theme-2026.scss          # entry — @use's 36 overlay partials
+│   ├── app.scss              # entry — @use's 36 overlay partials
 │   ├── _variables.scss          # design tokens (legacy)
 │   ├── _generic.scss            # normalize, scrollbars, typography
 │   ├── _elements.scss           # title, links
@@ -659,7 +675,7 @@ This project is licensed under the **MIT License** - see the [LICENSE.md](LICENS
 
 **Made with ❤️ by [Colorlib](https://colorlib.com)**
 
-v3.2.0 · May 2026 · Bootstrap 5.3.8 · Font Awesome 7.2.0 · Chart.js 4.5.1 · FullCalendar 6.1.20 · Vanilla JavaScript · Pug + SCSS + Vite source pipeline
+v3.3.0 · May 2026 · Bootstrap 5.3.8 · Font Awesome 7.2.0 · Chart.js 4.5.1 · FullCalendar 6.1.20 · Vanilla JavaScript · Pug + SCSS + Vite source pipeline
 
 [⬆ Back to Top](#cooladmin---modern-bootstrap-5-admin-dashboard-template)
 

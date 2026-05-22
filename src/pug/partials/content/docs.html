@@ -54,7 +54,7 @@ npx serve .</code></pre>
 ├── *.html                    27 page templates (dashboards, tables, forms, etc.)
 ├── css/
 │   ├── theme.css             legacy CoolAdmin styles (kept for compat)
-│   ├── theme-2026.css        modern v3 design system
+│   ├── app.css        modern v3 design system
 │   └── font-face.css         Poppins font-face declarations
 ├── js/
 │   ├── vanilla-utils.js      jQuery shim ($, on, ready, etc.)
@@ -75,17 +75,17 @@ npx serve .</code></pre>
                                         <li><code>vendor/fontawesome-7.2.0/css/all.min.css</code> &mdash; icons</li>
                                         <li><code>vendor/bootstrap-5.3.8.min.css</code> &mdash; Bootstrap base</li>
                                         <li><code>css/theme.css</code> &mdash; legacy theme</li>
-                                        <li><code>css/theme-2026.css</code> &mdash; modern overlay (this is where almost everything lives)</li>
+                                        <li><code>css/app.css</code> &mdash; modern overlay (this is where almost everything lives)</li>
                                     </ol>
                                 </section>
 
                                 <section class="docs-section" id="themes">
                                     <h2>Color themes <a class="anchor" href="#themes" aria-label="Link"><i class="fa-solid fa-link"></i></a></h2>
                                     <p>Six accent-color presets ship out of the box. Use the floating palette button (bottom-right of any page) to try them, or set the body class directly:</p>
-                                    <pre><code>&lt;body class=&quot;theme-2026 theme-purple&quot;&gt;</code></pre>
+                                    <pre><code>&lt;body class=&quot;app theme-purple&quot;&gt;</code></pre>
                                     <p>Available themes: <code>theme-blue</code> (default), <code>theme-purple</code>, <code>theme-teal</code>, <code>theme-rose</code>, <code>theme-amber</code>, <code>theme-graphite</code>.</p>
-                                    <p>To define your own theme, override the four accent variables on <code>body.theme-2026.theme-yourname</code>:</p>
-                                    <pre><code>body.theme-2026.theme-mycolor {
+                                    <p>To define your own theme, override the four accent variables on <code>body.app.theme-yourname</code>:</p>
+                                    <pre><code>body.app.theme-mycolor {
     --m-accent:        #ff5722;
     --m-accent-rgb:    255, 87, 34;
     --m-accent-hover:  #e64a19;
@@ -97,8 +97,8 @@ npx serve .</code></pre>
                                 <section class="docs-section" id="typography">
                                     <h2>Typography <a class="anchor" href="#typography" aria-label="Link"><i class="fa-solid fa-link"></i></a></h2>
                                     <p>The default sans-serif is <strong style="color:var(--m-text);">Inter</strong> served from <code>rsms.me</code>. The legacy <strong style="color:var(--m-text);">Poppins</strong> is also bundled in <code>fonts/poppins</code> for offline use.</p>
-                                    <p>To swap fonts globally, change the <code>--m-font</code> token at the top of <code>css/theme-2026.css</code>:</p>
-                                    <pre><code>body.theme-2026 {
+                                    <p>To swap fonts globally, change the <code>--m-font</code> token at the top of <code>css/app.css</code>:</p>
+                                    <pre><code>body.app {
     --m-font: &quot;Your Font&quot;, system-ui, sans-serif;
 }</code></pre>
                                     <p>The type scale used across pages:</p>
@@ -117,7 +117,7 @@ npx serve .</code></pre>
 
                                 <section class="docs-section" id="components">
                                     <h2>Components <a class="anchor" href="#components" aria-label="Link"><i class="fa-solid fa-link"></i></a></h2>
-                                    <p>Modern reusable patterns live under <code>.m-*</code> class names in <code>theme-2026.css</code>:</p>
+                                    <p>Modern reusable patterns live under <code>.m-*</code> class names in <code>app.css</code>:</p>
                                     <table>
                                         <thead><tr><th>Class</th><th>Purpose</th></tr></thead>
                                         <tbody>

@@ -5,6 +5,26 @@ All notable changes to the CoolAdmin Bootstrap 5 Admin Dashboard Template will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - 2026-05-22
+
+### Renamed `theme-2026` → `app`
+
+The "modern overlay" stylesheet picked up a year-flavoured name in v3.1 (`theme-2026.css`). Renamed it to a neutral convention so it doesn't feel dated within months. End-user visual output is unchanged; the rebuilt CSS is byte-equivalent modulo the class-name swap.
+
+### Changed
+
+- **`css/theme-2026.css` → `css/app.css`**, **`src/scss/theme-2026.scss` → `src/scss/app.scss`**, **`src/scss/2026/` → `src/scss/app/`** (all 36 partials).
+- **`body.theme-2026` → `body.app`** across all 35 pages. Every internal SCSS scope (`body.theme-2026 .m-card`, etc.) updated. Theme-preset selectors (`body.theme-2026.theme-purple` and friends) updated to `body.app.theme-purple`.
+- **`js/main-vanilla.js`** — `initThemeSwitcher()` gate updated to `body.classList.contains('app')`.
+- **`scripts/migrate-page.js`** — auto-detects `app auth-page` / `app error-page` body class (the previous strings are no longer present in any page).
+- **`package.json` npm scripts** — `sass --watch src/scss/theme-2026.scss:css/theme-2026.css` → `…app.scss:css/app.css`.
+- **`src/pug/partials/_head.pug`** — `link(href='css/theme-2026.css')` → `link(href='css/app.css')`.
+- **`src/pug/layouts/_default.pug`** — `body.theme-2026` → `body.app`. `_auth.pug` and `_error.pug` default `bodyClass` updated. 6 explicit-bodyClass pages (login, register, forget-pass, 404, 500, maintenance) updated.
+- **`src/pug/partials/content/docs.html`** — user-facing docs updated to reference `app.css` / `body.app` / `body.app.theme-purple` recipes.
+- **CLAUDE.md, README.md** current-tense references updated. Historical entries for v3.0 / v3.1 / v3.2 in this CHANGELOG were left as-is for fidelity to what was true at the time.
+
+---
+
 ## [3.2.0] - 2026-05-22
 
 ### Source pipeline — Pug templates, SCSS partials, Vite dev server
