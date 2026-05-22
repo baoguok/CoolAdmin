@@ -119,75 +119,75 @@ Each thumbnail links to its live demo on Cloudflare R2.
 - **Thin Custom Scrollbars** - Subtle 8px scrollbars for better UX
 - **Clean Typography** - Readable fonts and proper hierarchy
 
-## Go Pro — Premium Admin Templates
+## Upgrade to a Premium Dashboard
 
-Want more layouts, richer components, and priority support? Our premium templates on [DashboardPack](https://dashboardpack.com/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin) are built for teams shipping real products.
+Need advanced features, dedicated support, and production-ready code? Explore our handpicked collection of professional admin templates on [DashboardPack](https://dashboardpack.com/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin).
 
 <table>
   <tr>
     <td align="center" width="50%">
+      <a href="https://dashboardpack.com/theme-details/apex-dashboard-nextjs/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin">
+        <img src="screenshots/apex.png" alt="Apex Dashboard — Next.js 16 admin template with shadcn/ui" width="100%">
+      </a>
+      <br>
+      <a href="https://dashboardpack.com/theme-details/apex-dashboard-nextjs/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>Apex Dashboard</strong></a>
+      <br>
+      <sub>Next.js 16 + React 19 + Tailwind CSS v4 + shadcn/ui. 5 dashboard variants, 20+ app pages, 125+ routes, full CRUD.</sub>
+    </td>
+    <td align="center" width="50%">
+      <a href="https://dashboardpack.com/theme-details/zenith-shadcn/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin">
+        <img src="screenshots/zenith.png" alt="Zenith — ultra-minimal Next.js admin dashboard with shadcn/ui" width="100%">
+      </a>
+      <br>
+      <a href="https://dashboardpack.com/theme-details/zenith-shadcn/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>Zenith Dashboard</strong></a>
+      <br>
+      <sub>Next.js 16 + React 19 + Tailwind CSS v4 + shadcn/ui. Achromatic design, 50+ pages, 6 dashboards, live theme customizer.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://dashboardpack.com/theme-details/haze-dashboard-nuxt/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin">
+        <img src="screenshots/haze.png" alt="Haze — Nuxt 4 admin dashboard with 92+ pages and 5 dashboards" width="100%">
+      </a>
+      <br>
+      <a href="https://dashboardpack.com/theme-details/haze-dashboard-nuxt/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>Haze</strong></a>
+      <br>
+      <sub>Nuxt 4 + Nuxt UI v4 + Tailwind CSS v4. 92+ pages, 7 layouts, 5 dashboards, RTL, i18n, mock API layer.</sub>
+    </td>
+    <td align="center" width="50%">
       <a href="https://dashboardpack.com/theme-details/tailpanel/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin">
-        <img src="screenshots/tailpanel.png" alt="TailPanel — React admin dashboard with Tailwind CSS styling" width="100%">
+        <img src="screenshots/tailpanel.png" alt="TailPanel — modern React and Tailwind CSS admin panel" width="100%">
       </a>
       <br>
       <a href="https://dashboardpack.com/theme-details/tailpanel/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>TailPanel</strong></a>
       <br>
-      <sub>React + TypeScript + Tailwind CSS. 9 layouts, theme switching, Vite-powered.</sub>
+      <sub>React + TypeScript + Tailwind CSS + Vite. 9 dashboard designs, dark and light themes.</sub>
     </td>
+  </tr>
+  <tr>
     <td align="center" width="50%">
       <a href="https://dashboardpack.com/theme-details/admindek-html/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin">
-        <img src="screenshots/admindek.png" alt="Admindek — responsive admin panel with analytics dashboards" width="100%">
+        <img src="screenshots/admindek.png" alt="Admindek — feature-rich Bootstrap 5 dashboard with dark mode" width="100%">
       </a>
       <br>
       <a href="https://dashboardpack.com/theme-details/admindek-html/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>Admindek</strong></a>
       <br>
-      <sub>Bootstrap 5. 100+ UI elements, dark/light themes, RTL ready, 10 color schemes.</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="50%">
-      <a href="https://dashboardpack.com/theme-details/adminty-html-dashboard/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin">
-        <img src="screenshots/adminty.png" alt="Adminty — comprehensive admin dashboard with 160+ pages" width="100%">
-      </a>
-      <br>
-      <a href="https://dashboardpack.com/theme-details/adminty-html-dashboard/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>Adminty</strong></a>
-      <br>
-      <sub>Bootstrap 5. 160+ pages covering every common admin use case out of the box.</sub>
+      <sub>Bootstrap 5 + vanilla JS. 100+ components, dark/light modes, RTL support, 10 color presets.</sub>
     </td>
     <td align="center" width="50%">
-      <a href="https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin">
-        <img src="screenshots/architectui.png" alt="ArchitectUI — professional admin UI with 250+ integrated components" width="100%">
+      <a href="https://dashboardpack.com/theme-details/svelteforge-premium/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin">
+        <img src="screenshots/svelteforge.png" alt="SvelteForge Premium — SvelteKit admin dashboard with multi-tenant support" width="100%">
       </a>
       <br>
-      <a href="https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>ArchitectUI</strong></a>
+      <a href="https://dashboardpack.com/theme-details/svelteforge-premium/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>SvelteForge Premium</strong></a>
       <br>
-      <sub>Bootstrap 5. 250+ widgets, plug-and-play modular design, 9 dashboard variations.</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="50%">
-      <a href="https://dashboardpack.com/theme-details/kero-jquery-html-dashboard-pro/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin">
-        <img src="screenshots/kero.png" alt="Kero — Webpack-powered admin template with dual layout options" width="100%">
-      </a>
-      <br>
-      <a href="https://dashboardpack.com/theme-details/kero-jquery-html-dashboard-pro/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>Kero</strong></a>
-      <br>
-      <sub>Bootstrap 5 + Webpack. Choose between horizontal or sidebar navigation, SASS themes.</sub>
-    </td>
-    <td align="center" width="50%">
-      <a href="https://dashboardpack.com/theme-details/cryptocurrency-dashboard/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin">
-        <img src="screenshots/cryptocurrency.png" alt="Cryptocurrency Dashboard — crypto asset management admin panel" width="100%">
-      </a>
-      <br>
-      <a href="https://dashboardpack.com/theme-details/cryptocurrency-dashboard/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>Cryptocurrency Dashboard</strong></a>
-      <br>
-      <sub>Bootstrap. Designed for crypto exchanges, ICO dashboards, and portfolio tracking.</sub>
+      <sub>SvelteKit + Tailwind CSS v4. 30+ wired-up modules, multi-tenant from row zero, dark/light/system mode.</sub>
     </td>
   </tr>
 </table>
 
 <p align="center">
-  <a href="https://dashboardpack.com/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>Explore the Full Collection</strong></a>
+  <a href="https://dashboardpack.com/?utm_source=github&utm_medium=readme&utm_campaign=cooladmin"><strong>View All Premium Templates →</strong></a>
 </p>
 
 ## Technical Specifications
