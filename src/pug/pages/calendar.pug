@@ -4,6 +4,9 @@ block variables
   - var pageMeta = { "title": "Calendar", "description": "Event calendar built with FullCalendar 6.1.20 and Bootstrap 5 styling." }
   - var activePage = 'calendar.html'
 
+block extra_head
+  include ../partials/content/calendar.styles.html
+
 block content
   include ../partials/content/calendar.html
 
