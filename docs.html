@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="generator" content="CoolAdmin 3.3.0"/>
+    <meta name="generator" content="CoolAdmin 3.4.0"/>
     <meta name="description" content="Quick start, file structure, customization, JavaScript APIs, and deployment."/>
     <title>Documentation | CoolAdmin Bootstrap 5 Admin Dashboard</title>
     <meta property="og:type" content="website"/>
@@ -17,7 +17,7 @@
     <link href="css/font-face.css" rel="stylesheet" media="all"/>
     <link rel="preconnect" href="https://rsms.me/"/>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
-    <link href="vendor/fontawesome-7.2.0/css/all.min.css" rel="stylesheet" media="all"/>
+    <link href="vendor/fontawesome-7.3.1/css/all.min.css" rel="stylesheet" media="all"/>
     <link href="vendor/bootstrap-5.3.8.min.css" rel="stylesheet" media="all"/>
     <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all"/>
     <link href="css/theme.css" rel="stylesheet" media="all"/>
@@ -347,16 +347,16 @@ npx serve .</code></pre>
 │   └── modern-plugins.js     counters, lightbox, progress
 ├── vendor/                   third-party CSS/JS
 │   ├── bootstrap-5.3.8.bundle.min.js
-│   ├── fontawesome-7.2.0/
+│   ├── fontawesome-7.3.1/
 │   ├── chartjs/
-│   └── fullcalendar-6.1.20/
+│   └── fullcalendar-7.0.2/
 ├── images/                   logos, avatars, backgrounds
 └── README.md</code></pre>
                                     <p>Every page links the same canonical CSS chain in this order:</p>
                                     <ol>
                                         <li><code>css/font-face.css</code> &mdash; Poppins (legacy)</li>
                                         <li><code>https://rsms.me/inter/inter.css</code> &mdash; Inter (the modern font)</li>
-                                        <li><code>vendor/fontawesome-7.2.0/css/all.min.css</code> &mdash; icons</li>
+                                        <li><code>vendor/fontawesome-7.3.1/css/all.min.css</code> &mdash; icons</li>
                                         <li><code>vendor/bootstrap-5.3.8.min.css</code> &mdash; Bootstrap base</li>
                                         <li><code>css/theme.css</code> &mdash; legacy theme</li>
                                         <li><code>css/app.css</code> &mdash; modern overlay (this is where almost everything lives)</li>
@@ -504,7 +504,7 @@ document.body.classList.add('theme-purple');</code></pre>
                                     <p>The only external dependency is the Inter font from <code>rsms.me</code>. To go fully offline, download Inter and replace that <code>&lt;link&gt;</code> with a local stylesheet.</p>
                                     <blockquote>
                                         <strong>Tip</strong>
-                                        <p>Strip unused vendor folders before deploy if you don&rsquo;t need them &mdash; for example, drop <code>fullcalendar-6.1.20</code> if you don&rsquo;t use the calendar page (saves ~280 KB).</p>
+                                        <p>Strip unused vendor folders before deploy if you don&rsquo;t need them &mdash; for example, drop <code>fullcalendar-7.0.2</code> if you don&rsquo;t use the calendar page (saves ~825 KB).</p>
                                     </blockquote>
                                 </section>
 

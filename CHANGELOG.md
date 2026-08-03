@@ -5,6 +5,64 @@ All notable changes to the CoolAdmin Bootstrap 5 Admin Dashboard Template will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.0] - 2026-08-03
+
+### Dependency refresh — every runtime and build dependency on latest, zero security alerts
+
+Brought all npm and vendored dependencies to their current releases. The headline item is a FullCalendar 6 → 7 migration; everything else is a version bump. Eight Dependabot alerts (2 critical, 3 high, 1 moderate, 1 low, plus 2 duplicates) are resolved — all of them were in build-time `devDependencies` and none ever shipped to template users.
+
+### Security
+
+Resolved all 8 open Dependabot alerts. `npm audit` reports **0 vulnerabilities**.
+
+| Package | Was | Now | Advisory |
+| --- | --- | --- | --- |
+| `shell-quote` (via `concurrently`) | 1.8.3 | 1.9.0 | GHSA-w7jw-789q-3m8p (critical), GHSA-395f-4hp3-45gv (high) |
+| `immutable` (via `sass`) | 5.1.5 | 5.1.9 | GHSA-v56q-mh7h-f735, GHSA-xvcm-6775-5m9r (high) |
+| `postcss` (via `vite`) | 8.5.15 | 8.5.25 | GHSA-r28c-9q8g-f849 (high) |
+| `vite` | 7.3.3 | 8.2.0 | GHSA-fx2h-pf6j-xcff (high) |
+| `launch-editor` (via `vite`) | — | removed | GHSA-v6wh-96g9-6wx3 (moderate) |
+| `esbuild` (via `vite`) | 0.27.7 | removed | GHSA-g7r4-m6w7-qqqr (low) |
+
+`launch-editor` and `esbuild` left the tree entirely — Vite 8 replaced esbuild with Rolldown.
+
+### Changed — build dependencies
+
+- **Vite 7.3.3 → 8.2.0** (major). `vite.config.js` needed no changes; MPA mode, port, and watch-ignore options all carry over. Dev server verified serving all 35 pages plus every CSS/JS/vendor asset.
+- **concurrently 9.2.1 → 10.0.4** (major), **chokidar 4.0.3 → 5.0.0** (major), **sass 1.100.0 → 1.102.0**, **pug 3.0.4** (already current).
+- Node engine floor is now **≥20.19 / ≥22.12** (concurrently 10 wants ≥22). Verified on Node 26.
+- Sass 1.102.0 output is byte-identical to the previous build — `git diff` on `css/*.css` after rebuilding was empty.
+
+### Changed — FullCalendar 6.1.20 → 7.0.2 (major migration)
+
+v7 is a rewrite, not a drop-in upgrade. What changed in this repo:
+
+- **Distribution.** `vendor/fullcalendar-6.1.20/fullcalendar.min.js` (284 KB, one file) → `vendor/fullcalendar-7.0.2/` containing `fullcalendar.global.js` (778 KB), `skeleton.css`, and `themes/classic/{theme.css,palette.css,theme.global.js}`. `calendar.html` now loads **2 scripts and 3 stylesheets**; v6 injected its CSS from JS.
+- **No `temporal-polyfill` needed.** v7 declares it a peer dependency, but the global bundle ships its own Temporal shim and only uses `globalThis.Temporal` when present (`NativeTemporal ? native : shim`). The peer dep applies to ESM consumers who bundle it themselves.
+- **Theming rewritten.** v7 generates hashed internal class names (`.fc-classic-dl6`), so v6's `.fc-daygrid-event` / `.fc-button-primary` / `.fc-scrollgrid` overrides no longer match anything. All 18 of them were removed from `src/scss/app/_forms-bootstrap.scss` and `_mobile-refinements.scss` and replaced with the theme's public `--fc-classic-*` custom properties, mapped to CoolAdmin's `--m-*` tokens in `src/pug/partials/content/calendar.styles.html`. The calendar now follows the accent-preset switcher automatically.
+- **Event colors.** Per-event `backgroundColor` / `borderColor` / `textColor` were replaced by `color` / `contrastColor`. Updated in the event factory and in `addNewEvent()`.
+- **`windowResize` removed.** v7 tracks container size itself; the manual `calendar.updateSize()` call is gone.
+- **Typography hooks.** Uppercase day-of-week headers are restored via the public `dayHeaderInnerClass` / `dayCellTopInnerClass` options rather than by targeting v7's hashed classes, so they survive future patch releases.
+- Dark-mode tokens now come free — the theme palette ships a `[data-color-scheme=dark]` block.
+
+### Changed — other vendored libraries
+
+- **Font Awesome 7.2.0 → 7.3.1.** All 151 icon classes used across the template verified present in the new release.
+- **css-hamburgers → 1.2.1.** Only `hamburger--slider` is used; confirmed present.
+- **Bootstrap 5.3.8, Chart.js 4.5.1, Leaflet 1.9.4** were already on the latest release — unchanged.
+
+### Fixed
+
+- **`fa-presentation-screen` on `card.html` rendered as a blank glyph.** It is a Font Awesome **Pro** icon and was never present in the Free package, so it was broken in 7.2.0 too. Replaced with `fa-display`.
+- **Dangling sourcemap references.** `bootstrap-5.3.8.min.css`, `bootstrap-5.3.8.bundle.min.js`, and `chart.umd.js-4.5.1.min.js` each ended with a `sourceMappingURL` comment pointing at a `.map` file that was never vendored, producing 404s in browser devtools and errors in the Vite dev server. The comments were stripped (46/49/43 bytes; both JS files re-verified with `node --check`).
+- **`console.log` in the calendar's `eventClick` handler**, left over from development and in violation of the template's no-console rule. Replaced with a `window.toast` call, which also makes the click actually do something visible.
+
+### Verification
+
+All 35 pages were loaded in headless Chromium: **0 console errors, 0 failed requests**. The calendar was additionally exercised across all four views (month / week / day / list), month navigation, and event-click, with before/after screenshots compared against the v6 build to confirm no visual regressions.
+
+---
+
 ## [3.3.0] - 2026-05-22
 
 ### Renamed `theme-2026` → `app`

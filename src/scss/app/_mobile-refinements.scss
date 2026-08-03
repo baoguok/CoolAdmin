@@ -265,16 +265,9 @@
         margin-bottom: 6px;
     }
 
-    /* Calendar — FullCalendar toolbar wraps cleanly */
-    body.app .fc .fc-toolbar.fc-header-toolbar {
-        flex-direction: column;
-        gap: 8px;
-        align-items: stretch;
-    }
-    body.app .fc .fc-toolbar-title {
-        font-size: 14px;
-        text-align: center;
-    }
+    /* Calendar — FullCalendar 7 handles its own responsive toolbar collapsing.
+       The v6 .fc-toolbar / .fc-toolbar-title overrides that used to live here
+       targeted class names that no longer exist in v7. */
 }
 
 /* ---------- Very narrow phones (< 380px) ------------------------------- */

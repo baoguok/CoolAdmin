@@ -2,79 +2,45 @@
 
 ![CoolAdmin Dashboard](screenshots/cooladmin-bootstrap-dashboard-2.png)
 
-[![Version](https://img.shields.io/badge/version-3.3.0-4272d7?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.4.0-4272d7?style=flat-square)](CHANGELOG.md)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3?style=flat-square&logo=bootstrap)](https://getbootstrap.com/)
 [![Chart.js](https://img.shields.io/badge/Chart.js-4.5.1-ff6384?style=flat-square&logo=chart.js)](https://www.chartjs.org/)
-[![FontAwesome](https://img.shields.io/badge/FontAwesome-7.2.0-339af0?style=flat-square&logo=fontawesome)](https://fontawesome.com/)
-[![FullCalendar](https://img.shields.io/badge/FullCalendar-6.1.20-2c3e50?style=flat-square)](https://fullcalendar.io/)
+[![FontAwesome](https://img.shields.io/badge/FontAwesome-7.3.1-339af0?style=flat-square&logo=fontawesome)](https://fontawesome.com/)
+[![FullCalendar](https://img.shields.io/badge/FullCalendar-7.0.2-2c3e50?style=flat-square)](https://fullcalendar.io/)
 [![Vanilla JS](https://img.shields.io/badge/JavaScript-Vanilla-f7df1e?style=flat-square&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
 
-**CoolAdmin** is a modern, responsive, and feature-rich admin dashboard template built with **Bootstrap 5.3.8** and **vanilla JavaScript**. Originally rewritten in 2025 to drop jQuery and Bootstrap 4; refreshed in 2026 (v3.0) with a leaner dependency set, accessibility improvements, and per-page SEO metadata; extended in v3.1 with a modern design overlay, a command palette, a theme switcher, loading skeletons, and 11 new pages including kanban, profile, pricing, invoice, and a working data table; refactored in v3.2 with a Pug + SCSS source pipeline so the sidebar nav and shared chrome live in a single editable file; renamed the year-flavoured `theme-2026` overlay to `app` in v3.3 for a less-dated convention.
+**CoolAdmin** is a modern, responsive, and feature-rich admin dashboard template built with **Bootstrap 5.3.8** and **vanilla JavaScript** — no jQuery, and no build step required to use it. 35 pages ship as ready-to-open HTML, with a Pug + SCSS + Vite source pipeline available for contributors who want to edit shared partials once instead of 35 times.
 
-## What's New in v3.3.0 (May 2026)
+Every dependency is on its current release with zero outstanding security advisories. See [what's new in v3.4.0](#whats-new-in-v340-august-2026) below, or [CHANGELOG.md](CHANGELOG.md) for the full history.
 
-### Renamed `theme-2026` → `app`
+## What's New in v3.4.0 (August 2026)
 
-A small but durable cleanup. The "modern overlay" stylesheet was named with a year in v3.1, and that name was on track to feel dated within months. Renamed everything to a neutral convention that won't age:
+### Dependency refresh — everything on latest, zero security alerts
 
-- **`css/theme-2026.css` → `css/app.css`**
-- **`src/scss/theme-2026.scss` → `src/scss/app.scss`**
-- **`src/scss/2026/` → `src/scss/app/`** (36 partials)
-- **`body.theme-2026` → `body.app`** across all 35 pages
-- Every internal SCSS scope (`body.theme-2026 .m-card`, etc.) updated to `body.app`
-- Theme-presets (`body.theme-2026.theme-purple` and friends) updated to `body.app.theme-purple`
-- The `initThemeSwitcher()` gate in `js/main-vanilla.js` updated to `body.classList.contains('app')`
+Every npm and vendored dependency is now on its current release, and `npm audit` reports **0 vulnerabilities**.
 
-End users see no visual change. Rebuilt CSS is byte-equivalent to v3.2 (modulo the class-name swap). The two-file convention (legacy `theme.css` + overlay) is preserved — only the overlay's name changed.
+- **All 8 open security advisories resolved** — `shell-quote` (critical), `immutable` ×2, `postcss`, `vite` (high), `launch-editor` (moderate), `esbuild` (low). Every one lived in a build-time `devDependency`, so no shipped template file was ever affected. `launch-editor` and `esbuild` left the dependency tree entirely when Vite 8 swapped esbuild for Rolldown.
+- **Build toolchain:** Vite 7 → **8.2.0**, concurrently 9 → **10.0.4**, chokidar 4 → **5.0.0**, sass → **1.102.0**. Three majors, no config changes required. Sass output is byte-identical to the previous build.
+- **FullCalendar 6.1.20 → 7.0.2** — a real migration, not a bump. v7 generates hashed internal class names, so the old `.fc-*` overrides were replaced with the theme's public `--fc-classic-*` custom properties mapped to CoolAdmin's design tokens. The calendar now follows the accent-preset switcher automatically, and dark-mode tokens come included. No `temporal-polyfill` needed — the global bundle ships its own Temporal shim.
+- **Font Awesome 7.2.0 → 7.3.1**, **css-hamburgers → 1.2.1**. Bootstrap 5.3.8, Chart.js 4.5.1, and Leaflet 1.9.4 were already current.
 
-## What's New in v3.2.0 (May 2026)
+### Fixed
 
-### Source pipeline — Pug templates, SCSS partials, Vite dev server
+- **A blank icon on `card.html`** — `fa-presentation-screen` is a Font Awesome *Pro* icon that was never in the Free package, so it had been rendering as an empty glyph. Now `fa-display`.
+- **Dangling sourcemap references** in three vendored minified files pointed at `.map` files that were never shipped, producing 404s in browser devtools.
+- **A leftover `console.log`** in the calendar's event-click handler, replaced with a toast so the interaction is actually visible.
 
-You can still clone the repo and open `index.html` — built HTML and CSS ship in the repo root with zero build step. But contributors now get:
+All 35 pages were verified in headless Chromium with 0 console errors and 0 failed requests; the calendar was additionally exercised across month, week, day, and list views.
 
-- **One-file menu editing.** Add, rename, or reorder a sidebar item in `src/pug/partials/_nav-data.pug` and it propagates to both the desktop sidebar and the mobile nav on every page. No more touching 24 HTML files for a single nav change.
-- **Pug layouts + partials.** Shared `<head>` (with per-page meta mixin), sidebar, topbar, mobile header, and footer scripts live in `src/pug/partials/`. Two layouts (`_default.pug` for dashboards, `_auth.pug` for login/register/forget-pass). Pages set `block variables` (title, description, activePage) and fill in `block content`.
-- **SCSS split into 56 partials.** `theme.scss` (legacy) decomposes into 20 ITCSS partials (`_variables`, `_generic`, `_elements`, `_objects`, fourteen `components/_*`, `_utilities`, `_modern-additions`). `app.scss` (overlay on theme.css) decomposes into 36 partials under `src/scss/app/`. Sass compiles them back to byte-equivalent CSS (verified via minified diff).
-- **Vite dev server with HMR.** `npm run dev` runs Pug watcher + sass watcher + Vite in parallel. Edit a partial or a SCSS variable, see the browser reload in milliseconds.
+## Previous releases
 
-Addresses [issue #35](https://github.com/puikinsh/CoolAdmin/issues/35). Three pages are migrated to Pug as a proof-of-concept (`index`, `login`, `table`); the other 21 remain hand-written HTML at the repo root and continue to work unchanged. Each can be migrated incrementally — ~10 lines of Pug plus an inner-content extraction.
+Full detail for every release is in **[CHANGELOG.md](CHANGELOG.md)**.
 
-## What's New in v3.1.0 (May 2026)
-
-### A modern application shell on top of the audited base
-
-- **`app.css` — single-file design overlay.** Activated by `<body class="app">`. Inter font, brand-blue palette, modern card and button patterns, stat-cards, profile cards, kanban board, project lists, deadline lists, email split-pane reader. Original styles still ship for anyone who prefers them.
-- **Cmd+K command palette** with 31+ commands, keyboard navigation, and fuzzy match.
-- **6-preset color theme switcher** (Cmd/Ctrl+Shift+T) — Default Blue, Indigo, Emerald, Sunset, Rose, Slate. Persists in `localStorage`.
-- **Toast notification system.** `window.toast.success(...)`, `.info`, `.warning`, `.error`. Stack of up to 5, click-to-dismiss.
-- **Loading skeletons.** All four dashboards have a working "Refresh" button that swaps KPI cards and the primary chart to shimmer placeholders for ~1.2s, then re-renders the real charts via `window.__coolReinit()`.
-- **Self-updating calendar.** Events generated relative to today, so the demo never goes stale.
-- **Interactive inbox** with a 12-message split-pane reader, star/archive/delete/reply.
-- **11 new pages.** `profile`, `kanban` (HTML5 drag-and-drop), `pricing`, `invoice` (print-ready), `data-table` (sort/filter/pagination), `wizard`, `docs` (TOC scrollspy), `notifications`, plus `404`, `500`, `maintenance`.
-- **Distinct dashboards.** `index2` is now Sales pipeline; `index3` is Marketing analytics; `index4` is Projects. Each has its own KPIs, primary chart, and supporting widgets.
-- **Component pages rebuilt** with modern interactive demos (async loading button, 6 modal variants, three tab styles, SVG circular-progress rings, brand-color form switches).
-
-## What's New in v3.0.0 (May 2026)
-
-### Audit pass — leaner, faster, more accessible
-
-- **Cut ~260 KB of JS per page** by removing unused libraries (AOS, Perfect Scrollbar, Swiper) that were loaded on every page but never instantiated.
-- **Single icon font.** Dropped the legacy Material Design Iconic Font (`zmdi-*`); migrated all 353 icon usages to Font Awesome 7.
-- **Accessibility upgrades.** Skip-to-main-content link, `<main>` landmark, `aria-label` on icon-only buttons, label-for binding + autocomplete on auth forms, `:focus-visible` outlines.
-- **Per-page SEO.** Unique title and description for every page. Open Graph + Twitter Card tags. Auth pages flagged `noindex`.
-- **Design tokens.** New `:root` block in `theme.css` — brand, surface, text, and shadow custom properties. Foundation for retheming and dark mode (`<html data-bs-theme="dark">`).
-- **Cleaner JS.** `main-vanilla.js` rewritten (1003 → 551 lines) with a shared sparkline-options factory; `bootstrap5-init.js` slimmed (69 → 12 lines); plugin styles moved out of injected `<style>` tags into `theme.css`. All 35 `console.log` calls removed.
-- **CSS sweep.** 718 obsolete `-webkit-` / `-moz-` / `-ms-` declarations removed; `theme.css` is 33 KB smaller.
-
-### Updated dependencies
-
-- **Bootstrap 5.3.8** — current stable
-- **Font Awesome 7.2.0** (was 7.1.0)
-- **Chart.js 4.5.1** — current stable
-- **FullCalendar 6.1.20** (was 6.1.11)
-- **Leaflet 1.9.4** (map page) — current stable
+- **v3.3.0** (May 2026) — Renamed the year-flavoured `theme-2026` overlay to `app` (`css/app.css`, `body.app`) so the convention doesn't age. No visual change.
+- **v3.2.0** (May 2026) — Introduced the **Pug + SCSS + Vite source pipeline**. The sidebar nav lives in one file (`src/pug/partials/_nav-data.pug`) and propagates to every page; SCSS is split into 56 partials. All 35 pages are now generated from Pug source, while built HTML and CSS still ship in the repo root so end users need no toolchain. Addresses [issue #35](https://github.com/puikinsh/CoolAdmin/issues/35).
+- **v3.1.0** (May 2026) — The modern application shell: design overlay, Cmd+K command palette, 6-preset theme switcher, toast system, loading skeletons, interactive inbox, and 11 new pages (kanban, profile, pricing, invoice, data table, wizard, docs, notifications, 404/500/maintenance).
+- **v3.0.0** (May 2026) — Audit pass. Cut ~260 KB of JS per page by dropping unused libraries, consolidated to a single icon font, added accessibility landmarks and per-page SEO metadata, introduced design tokens, and swept 718 obsolete vendor prefixes.
 
 ## Live Demo
 
@@ -211,16 +177,16 @@ Need advanced features, dedicated support, and production-ready code? Explore ou
 ### **Core Technologies**
 ```json
 {
-  "version": "3.3.0",
+  "version": "3.4.0",
   "bootstrap": "5.3.8",
   "chart.js": "4.5.1",
-  "fontawesome": "7.2.0",
-  "fullcalendar": "6.1.20",
+  "fontawesome": "7.3.1",
+  "fullcalendar": "7.0.2",
   "leaflet": "1.9.4",
   "javascript": "ES6+ Vanilla",
   "css": "CSS3 + Custom Properties (authored in SCSS)",
   "html": "HTML5 Semantic Markup (authored in Pug)",
-  "build": "Vite 7 + Sass + Pug (optional — built artifacts ship in repo)"
+  "build": "Vite 8 + Sass + Pug (optional — built artifacts ship in repo)"
 }
 ```
 
@@ -256,11 +222,11 @@ CoolAdmin/
 ├── vendor/
 │   ├── bootstrap-5.3.8.min.css   # Bootstrap 5.3.8
 │   ├── bootstrap-5.3.8.bundle.min.js
-│   ├── fontawesome-7.2.0/        # Font Awesome 7.2.0 (single icon font)
+│   ├── fontawesome-7.3.1/        # Font Awesome 7.3.1 (single icon font)
 │   ├── chartjs/                  # Chart.js 4.5.1 UMD bundle
-│   ├── fullcalendar-6.1.20/      # FullCalendar 6.1.20
+│   ├── fullcalendar-7.0.2/      # FullCalendar 7.0.2
 │   └── css-hamburgers/           # Animated hamburger menu icons
-├── src/                          # NEW in v3.2 — Pug + SCSS sources
+├── src/                          # Pug + SCSS sources (contributors only)
 │   ├── pug/                      # Layouts, partials, pages — see "Source layout" above
 │   └── scss/                     # 56 SCSS partials + two entry files
 ├── scripts/
@@ -300,7 +266,7 @@ cd CoolAdmin
 python3 -m http.server 8000      # or:  npx serve .
 ```
 
-Then open `http://localhost:8000/index.html`. Every page (24 in total) works without a toolchain.
+Then open `http://localhost:8000/index.html`. Every page (35 in total) works without a toolchain.
 
 ### As a contributor — Pug + SCSS + Vite
 
@@ -675,7 +641,7 @@ This project is licensed under the **MIT License** - see the [LICENSE.md](LICENS
 
 **Made with ❤️ by [Colorlib](https://colorlib.com)**
 
-v3.3.0 · May 2026 · Bootstrap 5.3.8 · Font Awesome 7.2.0 · Chart.js 4.5.1 · FullCalendar 6.1.20 · Vanilla JavaScript · Pug + SCSS + Vite source pipeline
+v3.4.0 · August 2026 · Bootstrap 5.3.8 · Font Awesome 7.3.1 · Chart.js 4.5.1 · FullCalendar 7.0.2 · Vanilla JavaScript · Pug + SCSS + Vite source pipeline
 
 [⬆ Back to Top](#cooladmin---modern-bootstrap-5-admin-dashboard-template)
 

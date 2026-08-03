@@ -29,11 +29,15 @@
             moreLinkText: 'more',
             navLinks: true,
             nowIndicator: true,
+            /* v7 generates hashed internal class names, so CoolAdmin styling
+               hooks in through the public *Class options instead of guessing
+               at them. These stay stable across FullCalendar patch releases. */
+            dayHeaderInnerClass: 'ca-fc-day-header',
+            dayCellTopInnerClass: 'ca-fc-day-number',
             eventTimeFormat: { hour: 'numeric', minute: '2-digit', meridiem: 'short' },
             eventClick: function (info) {
                 info.jsEvent.preventDefault();
                 const e = info.event;
-                const props = e.extendedProps;
                 const start = e.start ? e.start.toLocaleString(undefined, {
                     weekday: 'short', month: 'short', day: 'numeric',
                     hour: 'numeric', minute: '2-digit',
@@ -41,9 +45,13 @@
                 const end = e.end ? e.end.toLocaleString(undefined, {
                     hour: 'numeric', minute: '2-digit',
                 }) : '';
-                console.log('Event clicked:', e.title, 'type:', props.type, 'when:', start, '–', end);
+                /* Demo feedback — swap for your own detail view / modal. */
+                if (window.toast) {
+                    window.toast.info(end ? start + ' – ' + end : start, e.title);
+                }
             },
-            windowResize: function () { calendar.updateSize(); },
+            /* v7 removed the `windowResize` option — the calendar now tracks
+               container size itself, so no manual updateSize() call is needed. */
         });
         calendar.render();
         window.calendarInstance = calendar;
@@ -93,14 +101,15 @@
             personal:     { bg: '#fce7f3', fg: '#be185d' },  /* magenta */
         };
 
+        /* FullCalendar 7 replaced the per-event backgroundColor/borderColor/
+           textColor trio with `color` (fill) + `contrastColor` (text). */
         const e = (title, start, end, allDay, tag) => ({
             title,
             start,
             end,
             allDay,
-            backgroundColor: TAG_COLORS[tag].bg,
-            borderColor: TAG_COLORS[tag].bg,
-            textColor: TAG_COLORS[tag].fg,
+            color: TAG_COLORS[tag].bg,
+            contrastColor: TAG_COLORS[tag].fg,
             extendedProps: { type: tag },
         });
 
@@ -248,9 +257,8 @@
         window.calendarInstance.addEvent({
             title,
             start: new Date(),
-            backgroundColor: '#eaf0fc',
-            borderColor: '#eaf0fc',
-            textColor: '#4272d7',
+            color: '#eaf0fc',
+            contrastColor: '#4272d7',
             extendedProps: { type: 'custom' },
         });
     }

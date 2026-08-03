@@ -63,16 +63,16 @@ npx serve .</code></pre>
 │   └── modern-plugins.js     counters, lightbox, progress
 ├── vendor/                   third-party CSS/JS
 │   ├── bootstrap-5.3.8.bundle.min.js
-│   ├── fontawesome-7.2.0/
+│   ├── fontawesome-7.3.1/
 │   ├── chartjs/
-│   └── fullcalendar-6.1.20/
+│   └── fullcalendar-7.0.2/
 ├── images/                   logos, avatars, backgrounds
 └── README.md</code></pre>
                                     <p>Every page links the same canonical CSS chain in this order:</p>
                                     <ol>
                                         <li><code>css/font-face.css</code> &mdash; Poppins (legacy)</li>
                                         <li><code>https://rsms.me/inter/inter.css</code> &mdash; Inter (the modern font)</li>
-                                        <li><code>vendor/fontawesome-7.2.0/css/all.min.css</code> &mdash; icons</li>
+                                        <li><code>vendor/fontawesome-7.3.1/css/all.min.css</code> &mdash; icons</li>
                                         <li><code>vendor/bootstrap-5.3.8.min.css</code> &mdash; Bootstrap base</li>
                                         <li><code>css/theme.css</code> &mdash; legacy theme</li>
                                         <li><code>css/app.css</code> &mdash; modern overlay (this is where almost everything lives)</li>
@@ -220,7 +220,7 @@ document.body.classList.add('theme-purple');</code></pre>
                                     <p>The only external dependency is the Inter font from <code>rsms.me</code>. To go fully offline, download Inter and replace that <code>&lt;link&gt;</code> with a local stylesheet.</p>
                                     <blockquote>
                                         <strong>Tip</strong>
-                                        <p>Strip unused vendor folders before deploy if you don&rsquo;t need them &mdash; for example, drop <code>fullcalendar-6.1.20</code> if you don&rsquo;t use the calendar page (saves ~280 KB).</p>
+                                        <p>Strip unused vendor folders before deploy if you don&rsquo;t need them &mdash; for example, drop <code>fullcalendar-7.0.2</code> if you don&rsquo;t use the calendar page (saves ~825 KB).</p>
                                     </blockquote>
                                 </section>
 
