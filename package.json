@@ -1,9 +1,45 @@
 {
   "name": "cooladmin",
   "version": "3.4.0",
-  "private": true,
-  "description": "CoolAdmin — Bootstrap 5 admin dashboard template",
+  "description": "CoolAdmin — Bootstrap 5.3 admin dashboard template. 35 pages, vanilla JavaScript, no jQuery. Chart.js, FullCalendar 7, Leaflet, dark-mode tokens, command palette, and an optional Pug + SCSS + Vite source pipeline.",
   "type": "module",
+  "license": "MIT",
+  "author": "Colorlib (https://colorlib.com)",
+  "homepage": "https://cooladmin.colorlib.com/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/puikinsh/CoolAdmin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/puikinsh/CoolAdmin/issues"
+  },
+  "keywords": [
+    "admin",
+    "dashboard",
+    "admin-dashboard",
+    "admin-template",
+    "bootstrap",
+    "bootstrap5",
+    "html5",
+    "template",
+    "vanilla-js",
+    "chartjs",
+    "fullcalendar",
+    "responsive",
+    "colorlib"
+  ],
+  "files": [
+    "*.html",
+    "css/",
+    "js/",
+    "vendor/",
+    "fonts/",
+    "images/",
+    "media/",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE.md"
+  ],
   "scripts": {
     "dev": "concurrently -n pug,sass,vite -c blue,magenta,green \"npm:dev:pug\" \"npm:dev:sass\" \"npm:dev:vite\"",
     "dev:pug": "node scripts/build-pug.js --watch",
